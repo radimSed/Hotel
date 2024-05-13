@@ -1,32 +1,34 @@
+import java.math.BigDecimal;
+
 public class Room {
-    private int roomNmbr;
-    private int nmbrOfBeds;
+    private int roomNumber;
+    private int numberOfBeds;
     private boolean haveBalcony;
     private boolean haveSeaView;
-    private double pricePerNight;
+    private BigDecimal pricePerNight;
 
-    public Room(int roomNmbr, int nmbrOfBeds, boolean haveBalcony, boolean haveSeaView, double pricePerNight) {
-        this.roomNmbr = roomNmbr;
-        this.nmbrOfBeds = nmbrOfBeds;
+    public Room(int roomNumber, int numberOfBeds, boolean haveBalcony, boolean haveSeaView, BigDecimal pricePerNight) {
+        this.roomNumber = roomNumber;
+        this.numberOfBeds = numberOfBeds;
         this.haveBalcony = haveBalcony;
         this.haveSeaView = haveSeaView;
         this.pricePerNight = pricePerNight;
     }
 
-    public int getRoomNmbr() {
-        return roomNmbr;
+    public int getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setRoomNmbr(int roomNmbr) {
-        this.roomNmbr = roomNmbr;
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
-    public int getNmbrOfBeds() {
-        return nmbrOfBeds;
+    public int getNumberOfBeds() {
+        return numberOfBeds;
     }
 
-    public void setNmbrOfBeds(int nmbrOfBeds) {
-        this.nmbrOfBeds = nmbrOfBeds;
+    public void setNumberOfBeds(int numberOfBeds) {
+        this.numberOfBeds = numberOfBeds;
     }
 
     public boolean getHaveBalcony() {
@@ -45,11 +47,11 @@ public class Room {
         this.haveSeaView = haveSeaView;
     }
 
-    public double getPricePerNight() {
+    public BigDecimal getPricePerNight() {
         return pricePerNight;
     }
 
-    public void setPricePerNight(double pricePerNight) {
+    public void setPricePerNight(BigDecimal pricePerNight) {
         this.pricePerNight = pricePerNight;
     }
 }

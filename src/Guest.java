@@ -3,12 +3,12 @@ import java.time.LocalDate;
 public class Guest {
     private String name;
     private String surname;
-    private LocalDate dob;
+    private LocalDate dateOfBirth;
 
-    public Guest(String name, String surname, LocalDate dob) {
+    public Guest(String name, String surname, LocalDate dateOfBirth) {
         this.name = name;
         this.surname = surname;
-        this.dob = dob;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getName() {
@@ -27,15 +27,15 @@ public class Guest {
         this.surname = surname;
     }
 
-    public LocalDate getDob() {
-        return dob;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getDescription(){
-        return this.getName() + " " + this.getSurname() + " (" + this.getDob() + ")";
+        return this.getName() + " " + this.getSurname() + " (" + this.getDateOfBirth() + ")";
     }
 }

@@ -8,32 +8,32 @@ public class Booking {
     private Room room;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Stay stay;
+    private TypeOfStay typeOfStay;
 
-    public Booking(Guest guest, List<Guest> otherGuests, Room room, LocalDate startDate, LocalDate endDate, Stay stay) {
+    public Booking(Guest guest, List<Guest> otherGuests, Room room, LocalDate startDate, LocalDate endDate, TypeOfStay typeOfStay) {
         this.guest = guest;
         this.otherGuests = otherGuests;
         this.room = room;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.stay = stay;
+        this.typeOfStay = typeOfStay;
     }
 
     public Booking(Guest guest, List<Guest> otherGuests, Room room) {
-        this(guest, otherGuests, room, LocalDate.now(), LocalDate.now().plusDays(6), Stay.VACATION);
+        this(guest, otherGuests, room, LocalDate.now(), LocalDate.now().plusDays(6), TypeOfStay.VACATION);
     }
 
-    public Booking(Guest guest, Room room, LocalDate startDate, LocalDate endDate, Stay stay) {
+    public Booking(Guest guest, Room room, LocalDate startDate, LocalDate endDate, TypeOfStay typeOfStay) {
         this.guest = guest;
         this.otherGuests = null;
         this.room = room;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.stay = stay;
+        this.typeOfStay = typeOfStay;
     }
 
     public Booking(Guest guest, Room room) {
-        this(guest, room, LocalDate.now(), LocalDate.now().plusDays(6), Stay.VACATION);
+        this(guest, room, LocalDate.now(), LocalDate.now().plusDays(6), TypeOfStay.VACATION);
 
     }
         public void showDetails(){
@@ -44,9 +44,9 @@ public class Booking {
                 System.out.println(guest.getDescription());
             }
         }
-        System.out.println("Room: " + room.getRoomNmbr());
+        System.out.println("Room: " + room.getRoomNumber());
         System.out.println("Start: " + this.startDate + ", End: " + this.endDate);
-        System.out.println("Type: " + this.stay);
+        System.out.println("Type: " + this.typeOfStay);
     }
 
 }
