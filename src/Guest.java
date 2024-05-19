@@ -4,11 +4,17 @@ public class Guest {
     private String name;
     private String surname;
     private LocalDate dateOfBirth;
+    private String otherInfo;
 
     public Guest(String name, String surname, LocalDate dateOfBirth) {
+        this(name, surname, dateOfBirth, "No other info");
+    }
+
+    public Guest(String name, String surname, LocalDate dateOfBirth, String otherInfo) {
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;
+        this.otherInfo = otherInfo;
     }
 
     public String getName() {
@@ -36,6 +42,6 @@ public class Guest {
     }
 
     public String getDescription(){
-        return this.getName() + " " + this.getSurname() + " (" + this.getDateOfBirth() + ")";
+        return this.getName() + " " + this.getSurname() + " (" + this.getDateOfBirth() + ")" + ", " + this.otherInfo;
     }
 }

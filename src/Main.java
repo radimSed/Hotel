@@ -4,49 +4,96 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    static BookingManager bookingManager = new BookingManager();
+
     public static void main(String[] args) {
-        Guest guest1, guest2;
+        fillBookings();
+        System.out.println("Seznam všech rezervací:");
+        listOfBookings();
+        System.out.println("******************************************************************************************");
+        int numberOfVacationsToDisplay = 5;
+        System.out.println("Prvních " + numberOfVacationsToDisplay + " dovolených:");
+        listOfVacations(numberOfVacationsToDisplay);
+        System.out.println("******************************************************************************************");
+        System.out.println("Statistiky:");
+        listOfGuestStatistics();
+        System.out.println("Průměrný počet hostů na rezervaci je " + bookingManager.getAverageNumberOfGuests());
+        System.out.println("Počet pracovních rezervací je " + bookingManager.getNumberOfWorkingBookings());
+
+    }
+
+    public static void fillBookings() {
         Room room1, room2, room3;
-        Booking booking1, booking2,  booking3, booking4, booking5;
-        ListOfBookings listOgBookings = new ListOfBookings();
-
-        guest1 = new Guest("Adéla", "Malíková", LocalDate.of(1993, 3, 13));
-        guest2 = new Guest("Jan", "Dvořáček", LocalDate.of(1995, 5, 5));
-
-        System.out.println(guest1.getDescription());
-        System.out.println(guest2.getDescription());
-
-
         room1 = new Room(1, 1, true, true, BigDecimal.valueOf(1000));
         room2 = new Room(2, 1, true, true, BigDecimal.valueOf(1000));
         room3 = new Room(3, 3, false, true, BigDecimal.valueOf(2400));
 
-//  musi byt alespon jeden "hlavni" host, protoze konstruktor bez hlavnihio hosta neexistuje
-//        booking1 = new Booking(room1, LocalDate.of(2021, 7, 19),
-//                LocalDate.of(2021, 7, 26), Stay.VACATION);
+        Guest karel1, karel2, karolina;
+        karel1 = new Guest("Karel", "Dvořák", LocalDate.of(1990, 5, 15));
+        karel2 = new Guest("Karel", "Dvořák", LocalDate.of(1975, 1, 3));
+        karolina = new Guest("Karolina", "Tmavá", LocalDate.of(2000, 1, 1), "Fyzioterapeut");
 
-        booking1 = new Booking(guest1, room1, LocalDate.of(2021, 7, 19),
-                LocalDate.of(2021, 7, 26), TypeOfStay.VACATION);
+        bookingManager.addBooking(new Booking(karel1, room3, LocalDate.of(2023, 6, 1), LocalDate.of(2023, 6, 7), TypeOfStay.WORK));
+        bookingManager.addBooking(new Booking(karel2, room2, LocalDate.of(2023, 7, 18), LocalDate.of(2023, 7, 21), TypeOfStay.VACATION));
 
-        listOgBookings.addBooking(booking1);
+        int day = 1;
+        for (int i = 0; i < 10; i++) {
+            bookingManager.addBooking(new Booking(karolina, room2, LocalDate.of(2023, 8, day), LocalDate.of(2023, 8, day + 1), TypeOfStay.VACATION));
+            day += 2;
+        }
 
-        List<Guest> list2 = new ArrayList<>();
-        list2.add(guest2);
+        bookingManager.addBooking(new Booking(karolina, room3, LocalDate.of(2023, 8, 1), LocalDate.of(2023, 8, 31), TypeOfStay.WORK));
 
-        booking2 = new Booking(guest1, list2, room3, LocalDate.of(2021, 9, 1),
-                LocalDate.of(2021, 9, 14), TypeOfStay.VACATION);
+        //few more reservations to test the program
+        List<Guest> otherGuests1 = new ArrayList();
+        otherGuests1.add(karel1);
+        otherGuests1.add(karel2);
 
-        listOgBookings.addBooking(booking2);
+        List<Guest> otherGuests2 = new ArrayList();
+        otherGuests2.add(karolina);
 
-        booking3 = new Booking(guest1, room2); //druha rezervace pro Adelu
-        booking4 = new Booking(guest1, list2, room3); //druha rezervace na pokoj 3
-        booking5 = new Booking(guest2, room3, LocalDate.of(2023, 5, 5), LocalDate.of(2023, 5, 15), TypeOfStay.WORK); //treti rezervace na pokoj 3
+        bookingManager.addBooking(new Booking(karel1, otherGuests2, room3, LocalDate.of(2023, 12, 28), LocalDate.of(2024, 1, 2), TypeOfStay.VACATION));
+        bookingManager.addBooking(new Booking(karolina, otherGuests1, room3, LocalDate.of(2024, 2, 1), LocalDate.of(2024, 2, 2), TypeOfStay.VACATION));
+    }
 
-        listOgBookings.addBooking(booking3);
-        listOgBookings.addBooking(booking4);
-        listOgBookings.addBooking(booking5);
+    private static void listOfBookings(){
+        for( Booking booking : bookingManager.getBookings()){
+            System.out.println(booking.getDetails());
+        }
+    }
 
-        listOgBookings.writelistOfBookings();
+    private static void listOfVacations(int numberOfRequestedVacations){
+        int vacations = 0;
+        for( Booking booking : bookingManager.getBookings()){
+            if (booking.getTypeOfStay() == TypeOfStay.VACATION){
+                System.out.println(booking.getDetails());
+                vacations++;
+            }
+            if ( vacations == numberOfRequestedVacations ){
+                break;
+            }
+        }
+    }
+
+    private static void listOfGuestStatistics(){
+        int oneGuestReservations = 0, twoGuestsReservations = 0, moreGuestsReservations = 0;
+        for( Booking booking : bookingManager.getBookings()){
+            int numberOfGuests = booking.getNumberOfGuests();
+            switch (numberOfGuests) {
+                case 1:
+                    oneGuestReservations++;
+                    break;
+                case 2:
+                    twoGuestsReservations++;
+                    break;
+                default:
+                    moreGuestsReservations++;
+                    break;
+            }
+        }
+        System.out.println("Celkový počet rezervací s jedním hostem je " + oneGuestReservations);
+        System.out.println("Celkový počet rezervací s dvěma hosty je " + twoGuestsReservations);
+        System.out.println("Celkový počet rezervací s více než dvěma hosty je " + moreGuestsReservations);
     }
 
 
