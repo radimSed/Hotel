@@ -13,7 +13,9 @@ public class BookingManager {
     }
 
     public List<Booking> getBookings(){
-        return listOfBookings;
+        List<Booking> returnList = new ArrayList<>();
+        returnList.addAll(this.listOfBookings);
+        return returnList;
     }
 
     public void clearBookings(){
@@ -31,15 +33,15 @@ public class BookingManager {
     }
 
     public float getAverageNumberOfGuests(){
-        float averageNumberOfGuests;
+        float averageNumberOfGuests = 0.0f;
         int numberOfReservations, totalNumberOfGuests = 0;
 
-        numberOfReservations = this.listOfBookings.size();
-
-        for( Booking booking : this.listOfBookings){
-            totalNumberOfGuests += booking.getNumberOfGuests();
+        if ((numberOfReservations = this.listOfBookings.size()) > 0) {
+            for (Booking booking : this.listOfBookings) {
+                totalNumberOfGuests += booking.getNumberOfGuests();
+            }
+            averageNumberOfGuests = (float) totalNumberOfGuests / numberOfReservations;
         }
-        averageNumberOfGuests = (float)totalNumberOfGuests/numberOfReservations;
         return averageNumberOfGuests;
     }
 }

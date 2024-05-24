@@ -45,15 +45,8 @@ public class Main {
         bookingManager.addBooking(new Booking(karolina, room3, LocalDate.of(2023, 8, 1), LocalDate.of(2023, 8, 31), TypeOfStay.WORK));
 
         //few more reservations to test the program
-        List<Guest> otherGuests1 = new ArrayList();
-        otherGuests1.add(karel1);
-        otherGuests1.add(karel2);
-
-        List<Guest> otherGuests2 = new ArrayList();
-        otherGuests2.add(karolina);
-
-        bookingManager.addBooking(new Booking(karel1, otherGuests2, room3, LocalDate.of(2023, 12, 28), LocalDate.of(2024, 1, 2), TypeOfStay.VACATION));
-        bookingManager.addBooking(new Booking(karolina, otherGuests1, room3, LocalDate.of(2024, 2, 1), LocalDate.of(2024, 2, 2), TypeOfStay.VACATION));
+        bookingManager.addBooking(new Booking(karel1, List.of(karolina), room3, LocalDate.of(2023, 12, 28), LocalDate.of(2024, 1, 2), TypeOfStay.VACATION));
+        bookingManager.addBooking(new Booking(karolina, List.of(karel1, karel2), room3, LocalDate.of(2024, 2, 1), LocalDate.of(2024, 2, 2), TypeOfStay.VACATION));
     }
 
     private static void listOfBookings(){
